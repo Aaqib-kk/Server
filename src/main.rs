@@ -36,14 +36,43 @@
 
 //========================
 
-fn main() {
-    match reqwest::get("https://httpbin.org/ip") {
-        Ok(mut res) => {
-            match res.text() {
-                Ok(text) => println!("response is: {:?}", text),
-                Err(_) => println!("The error")
-            }
-        }
-        Err(_) => println!("The error")
-    }
+// fn main() {
+//     match reqwest::get("https://httpbin.org/ip") {
+//         Ok(mut res) => {
+//             match res.text() {
+//                 Ok(text) => println!("response is: {:?}", text),
+//                 Err(_) => println!("The error")
+//             }
+//         }
+//         Err(_) => println!("The error")
+//     }
+// }
+
+//=======================
+
+// use std::collections::HashMap;
+// use async_std::task;
+
+// fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+//     task::block_on(async {
+
+//         let res = reqwest::blocking::get("https://google.com/")?
+//         .json::<HashMap<String, String>>()?;
+//         println!("{:?}", res);
+//         Ok(())
+//     })
+// }
+
+//============using tokiyo
+
+use std::collections::HashMap;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let resp = reqwest::get("https://httpbin.org/ip")
+        .await?
+        .json::<HashMap<String, String>>()
+        .await?;
+    println!("{:#?}", resp);
+    Ok(())
 }

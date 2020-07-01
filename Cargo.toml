@@ -7,5 +7,6 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# reqwest = "0.9.22"
-reqwest = { version = "0.10", features = ["json"] }
+async-std = "1.6.2"
+reqwest = { version = "0.10", features = ["blocking", "json"] }
+tokio = { version = "0.2", features = ["full"] }
